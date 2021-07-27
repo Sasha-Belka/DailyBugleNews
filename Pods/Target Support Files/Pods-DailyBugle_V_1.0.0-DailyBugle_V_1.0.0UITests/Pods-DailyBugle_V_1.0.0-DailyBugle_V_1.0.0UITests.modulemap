@@ -1,0 +1,6 @@
+framework module Pods_DailyBugle_V_1_0_0_DailyBugle_V_1_0_0UITests {
+  umbrella header "Pods-DailyBugle_V_1.0.0-DailyBugle_V_1.0.0UITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
