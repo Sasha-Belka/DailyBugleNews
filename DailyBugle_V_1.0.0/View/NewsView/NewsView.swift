@@ -72,7 +72,6 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource{
         tableView.separatorColor = UIColor.systemYellow
         navigationController?.navigationBar.barTintColor = .black
         navigationController?.navigationBar.tintColor = .white
-        //navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
     }
 }
 

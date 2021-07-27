@@ -33,6 +33,9 @@ final class LocalViewController: UIViewController {
         super.viewDidLoad()
         guard let url = URL(string: favorite.imageUrl ?? "0") else {return}
         newsImage.sd_setImage(with: url, completed: nil)
+        let addButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteFavorite))
+        addButton.image = UIImage()
+        self.navigationItem.rightBarButtonItem = addButton
         setupUI()
     }
 }
@@ -46,6 +49,14 @@ extension LocalViewController {
         sectionLabel.text = "Section: " + (favorite.section ?? "-")
         updatedLabel.text = "Updated: " + (favorite.update ?? "-")
     }
+    @objc func deleteFavorite() {
+        let deleteFavorite = FavoriteData()
+        deleteFavorite.removeButton(data: favorite)
+        let present = FavoriteNewsImpl(navigator: presenter.navigator)
+        let vc = FavoriteViewController(presenter: present)
+        navigationController?.pushViewController(vc, animated: true)
+        presenter.message(new: title, viewController: self)
+        }
 }
 
 

@@ -46,9 +46,6 @@ class DetailNewsViewController: UIViewController {
         let swipeRecognizerRight = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipeGestureRight))
         swipeRecognizerRight.direction = .right
         view.addGestureRecognizer(swipeRecognizerRight)
-        /*let removeButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(addFavorite))
-        addButton.image = UIImage()
-        self.navigationItem.rightBarButtonItem = removeButton*/
     }
 
 }
@@ -57,10 +54,10 @@ extension DetailNewsViewController {
     func setupUI() {
         if ((news?[index].media?.count) != 0) {
             guard let url = URL(string: (news?[index].media?[0].mediametadata?[2].url ?? "Image not found")) else {return}
-            newsImage.sd_setImage(with: url, completed: nil)}
+        newsImage.sd_setImage(with: url, completed: nil)}
         newsHeadTitle.lineBreakMode = .byWordWrapping
         newsHeadTitle.numberOfLines = 0
-       newsHeadTitle.text = news?[index].title
+        newsHeadTitle.text = news?[index].title
         sourceLabel.text = "Source: " + (news?[index].source ?? "-")
         sectionLabel.text = "Section: " + (news?[index].section ?? "-")
         updatedLabel.text = "Updated: " + (news?[index].updated ?? "-")
@@ -68,17 +65,16 @@ extension DetailNewsViewController {
     
     @objc func addFavorite() {
         let addFavorite = FavoriteData()
+        if ((news?[index].media?.count) != 0) {
         addFavorite.saveFavoriteNews(headTitle: news?[index].title, source: news?[index].source, section: news?[index].section, update: news?[index].updated, imageUrl: news?[index].media?[0].mediametadata?[2].url ?? "0")
-        presenter.message(new: title, viewController: self)
+            presenter.message(new: title, viewController: self)
+            
+        } else {
+        addFavorite.saveFavoriteNews(headTitle: news?[index].title, source: news?[index].source, section: news?[index].section, update: news?[index].updated, imageUrl: "000")
+            presenter.message(new: title, viewController: self)}
     }
     @objc func handleSwipeGestureLeft(sender: UISwipeGestureRecognizer) {
-        let swipeIndex = news?.index(index , offsetBy: 1)
-        let vc = DetailNewsViewController(news: news, index: swipeIndex ?? index, presenter: presenter)
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    @objc private func handleSwipeGestureRight(sender: UISwipeGestureRecognizer) {
-        let swipeIndex = news?.index(index , offsetBy: -1)
-        let vc = DetailNewsViewController(news: news, index: swipeIndex ?? index, presenter: presenter)
-        self.navigationController?.pushViewController(vc, animated: false)
-    }
+        presenter.handleSwipeGestureLeft(sender: sender, news: news, index: index, viewController: self) }
+    @objc func handleSwipeGestureRight(sender: UISwipeGestureRecognizer) {
+        presenter.handleSwipeGestureRight(sender: sender, news: news, index: index, viewController: self) }
 }

@@ -56,7 +56,7 @@ class FavoriteViewController: UIViewController {
             func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
                 let action = UIContextualAction(style: .destructive, title: "Delete") { [self] (action, view, comletionHandler) in
                     let cellToRemove = news![indexPath.row]
-                    data.remove(cellToRemove: cellToRemove)
+                    data.removeCell(cellToRemove: cellToRemove)
                     reload()
                 }
                 return UISwipeActionsConfiguration(actions: [action])

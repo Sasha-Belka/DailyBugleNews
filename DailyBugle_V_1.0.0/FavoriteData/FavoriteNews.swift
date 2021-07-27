@@ -44,8 +44,18 @@ class FavoriteData: FavoriteDataProtocol {
             print("Error")
         }
     }
-    func remove(cellToRemove: FavoriteNews) {
+    func removeCell(cellToRemove: FavoriteNews) {
         self.context.delete(cellToRemove)
+       
+        do {
+            try self.context.save()
+        }
+        catch {
+            print("Error")
+        }
+    }
+    func removeButton(data: FavoriteNews) {
+        self.context.delete(data)
        
         do {
             try self.context.save()
