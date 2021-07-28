@@ -29,7 +29,6 @@ class NewsViewController: UIViewController {
         super.viewDidLoad()
         getNews()
         setupUI()
-        
         self.tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
         self.tableView.delegate = self
         self.tableView.dataSource = self

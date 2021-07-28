@@ -24,16 +24,4 @@ final class DetailNewsPresenterImpl {
         alert.addAction(okButton)
         viewController.present(alert, animated: true, completion: nil)
     }
-    func handleSwipeGestureLeft(sender: UISwipeGestureRecognizer, news:[Result]?, index: Int, viewController: UIViewController) {
-        if (news?.endIndex != index+1) {
-        let swipeIndex = news?.index(index , offsetBy: 1)
-        let vc = DetailNewsViewController(news: news, index: swipeIndex ?? index, presenter: self)
-        viewController.navigationController?.pushViewController(vc, animated: true)
-        }}
-    func handleSwipeGestureRight(sender: UISwipeGestureRecognizer, news:[Result]?, index: Int, viewController: UIViewController) {
-        if (news?.endIndex != index) {
-        let swipeIndex = news?.index(index , offsetBy: -1)
-        let vc = DetailNewsViewController(news: news, index: swipeIndex ?? index, presenter: self)
-        viewController.navigationController?.pushViewController(vc, animated: false)
-        }}
 }

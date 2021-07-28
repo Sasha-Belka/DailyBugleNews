@@ -38,14 +38,6 @@ class DetailNewsViewController: UIViewController {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFavorite))
         addButton.image = UIImage()
         self.navigationItem.rightBarButtonItem = addButton
-        
-        let swipeRecognizerLeft = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipeGestureLeft))
-        swipeRecognizerLeft.direction = .left
-        view.addGestureRecognizer(swipeRecognizerLeft)
-        
-        let swipeRecognizerRight = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipeGestureRight))
-        swipeRecognizerRight.direction = .right
-        view.addGestureRecognizer(swipeRecognizerRight)
     }
 
 }
@@ -73,8 +65,4 @@ extension DetailNewsViewController {
         addFavorite.saveFavoriteNews(headTitle: news?[index].title, source: news?[index].source, section: news?[index].section, update: news?[index].updated, imageUrl: "000")
             presenter.message(new: title, viewController: self)}
     }
-    @objc func handleSwipeGestureLeft(sender: UISwipeGestureRecognizer) {
-        presenter.handleSwipeGestureLeft(sender: sender, news: news, index: index, viewController: self) }
-    @objc func handleSwipeGestureRight(sender: UISwipeGestureRecognizer) {
-        presenter.handleSwipeGestureRight(sender: sender, news: news, index: index, viewController: self) }
 }
