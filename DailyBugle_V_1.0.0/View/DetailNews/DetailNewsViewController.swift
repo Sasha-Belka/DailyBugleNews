@@ -16,12 +16,10 @@ class DetailNewsViewController: UIViewController {
     @IBOutlet weak var sourceLabel: UILabel!
     @IBOutlet weak var sectionLabel: UILabel!
     @IBOutlet weak var updatedLabel: UILabel!
-    var news: [Result]?
-    var index: Int
+    var news: Result
     private  var presenter: DetailNewsPresenterImpl!
-    init(news: [Result]?, index: Int, presenter: DetailNewsPresenterImpl) {
+    init(news: Result, presenter: DetailNewsPresenterImpl) {
         self.news = news
-        self.index = index
         self.presenter = presenter
         super.init(nibName: "DetailNewsViewController", bundle: nil)
     }
@@ -44,25 +42,25 @@ class DetailNewsViewController: UIViewController {
 
 extension DetailNewsViewController {
     func setupUI() {
-        if ((news?[index].media?.count) != 0) {
-            guard let url = URL(string: (news?[index].media?[0].mediametadata?[2].url ?? "Image not found")) else {return}
+        if ((news.media?.count) != 0) {
+            guard let url = URL(string: (news.media?[0].mediametadata?[2].url ?? "Image not found")) else {return}
         newsImage.sd_setImage(with: url, completed: nil)}
         newsHeadTitle.lineBreakMode = .byWordWrapping
         newsHeadTitle.numberOfLines = 0
-        newsHeadTitle.text = news?[index].title
-        sourceLabel.text = "Source: " + (news?[index].source ?? "-")
-        sectionLabel.text = "Section: " + (news?[index].section ?? "-")
-        updatedLabel.text = "Updated: " + (news?[index].updated ?? "-")
+        newsHeadTitle.text = news.title
+        sourceLabel.text = "Source: " + (news.source ?? "-")
+        sectionLabel.text = "Section: " + (news.section ?? "-")
+        updatedLabel.text = "Updated: " + (news.updated ?? "-")
             }
     
     @objc func addFavorite() {
         let addFavorite = FavoriteData()
-        if ((news?[index].media?.count) != 0) {
-        addFavorite.saveFavoriteNews(headTitle: news?[index].title, source: news?[index].source, section: news?[index].section, update: news?[index].updated, imageUrl: news?[index].media?[0].mediametadata?[2].url ?? "0")
+        if ((news.media?.count) != 0) {
+        addFavorite.saveFavoriteNews(headTitle: news.title, source: news.source, section: news.section, update: news.updated, imageUrl: news.media?[0].mediametadata?[2].url ?? "0")
             presenter.message(new: title, viewController: self)
             
         } else {
-        addFavorite.saveFavoriteNews(headTitle: news?[index].title, source: news?[index].source, section: news?[index].section, update: news?[index].updated, imageUrl: "000")
+        addFavorite.saveFavoriteNews(headTitle: news.title, source: news.source, section: news.section, update: news.updated, imageUrl: "000")
             presenter.message(new: title, viewController: self)}
     }
 }

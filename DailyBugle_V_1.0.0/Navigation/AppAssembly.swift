@@ -9,9 +9,9 @@ import UIKit
 
 class AppAssembly: NSObject {
     
-    func detailNewsController(navigator: NewsNavigatorImpl, news: [Result]?, index: Int) -> UIViewController {
+    func detailNewsController(navigator: NewsNavigatorImpl, news: Result) -> UIViewController {
         let presenter = DetailNewsPresenterImpl(navigator: navigator)
-        let viewController = DetailNewsViewController(news: news, index: index, presenter: presenter)
+        let viewController = DetailNewsViewController(news: news, presenter: presenter)
         return viewController
     }
     func localNewsController(navigator: NewsNavigatorImpl, favorite: FavoriteNews) -> UIViewController{

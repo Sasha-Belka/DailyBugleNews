@@ -65,7 +65,8 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        presenter.pushDetailNews(view: self, news: allNews, index: indexPath.row)
+        guard let news = allNews?[indexPath.row] else { return }
+        presenter.pushDetailNews(view: self, news: news)
     }
     func setupUI(){
         tableView.separatorColor = UIColor.systemYellow
