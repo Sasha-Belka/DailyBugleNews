@@ -6,7 +6,7 @@ target 'DailyBugle_V_1.0.0' do
   use_frameworks!
 
   pod 'Alamofire'
-  pod 'SDWebImage'
+  pod 'Kingfisher'
   pod 'SwiftLint'
 
   target 'DailyBugle_V_1.0.0Tests' do

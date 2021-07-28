@@ -1,6 +1,6 @@
 
 import UIKit
-import SDWebImage
+import Kingfisher
 
 
 final class LocalViewController: UIViewController {
@@ -32,7 +32,7 @@ final class LocalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let url = URL(string: favorite.imageUrl ?? "0") else {return}
-        newsImage.sd_setImage(with: url, completed: nil)
+        newsImage.kf.setImage(with: url)
         let addButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteFavorite))
         addButton.image = UIImage()
         self.navigationItem.rightBarButtonItem = addButton

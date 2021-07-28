@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import SDWebImage
+import Kingfisher
 import CoreData
 
 class DetailNewsViewController: UIViewController {
@@ -44,7 +44,7 @@ extension DetailNewsViewController {
     func setupUI() {
         if ((news.media?.count) != 0) {
             guard let url = URL(string: (news.media?[0].mediametadata?[2].url ?? "Image not found")) else {return}
-        newsImage.sd_setImage(with: url, completed: nil)}
+            newsImage.kf.setImage(with: url)}
         newsHeadTitle.lineBreakMode = .byWordWrapping
         newsHeadTitle.numberOfLines = 0
         newsHeadTitle.text = news.title
