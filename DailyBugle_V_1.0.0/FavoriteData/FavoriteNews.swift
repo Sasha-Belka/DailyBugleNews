@@ -21,8 +21,8 @@ class FavoriteData: FavoriteDataProtocol {
         let newFavorite = FavoriteNews(context: self.context)
         newFavorite.headTitle = headTitle
         newFavorite.source = source
-        newFavorite.section = section
-        newFavorite.update = update
+        newFavorite.id = section
+        newFavorite.id = update
         newFavorite.imageUrl = imageUrl
         do {
             try self.context.save()

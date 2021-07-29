@@ -46,8 +46,8 @@ extension LocalViewController {
         newsHeadTitle.numberOfLines = 0
         newsHeadTitle.text = favorite.headTitle
         sourceLabel.text = "Source: " + (favorite.source ?? "-")
-        sectionLabel.text = "Section: " + (favorite.section ?? "-")
-        updatedLabel.text = "Updated: " + (favorite.update ?? "-")
+        sectionLabel.text = "Section: " + (favorite.id ?? "-")
+        updatedLabel.text = "Updated: " + (favorite.id ?? "-")
     }
     @objc func deleteFavorite() {
         let deleteFavorite = FavoriteData()

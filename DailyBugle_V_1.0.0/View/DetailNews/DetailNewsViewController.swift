@@ -10,12 +10,13 @@ import Kingfisher
 import CoreData
 
 class DetailNewsViewController: UIViewController {
-    
+  
     @IBOutlet weak var newsImage: UIImageView!
-    @IBOutlet weak var newsHeadTitle: UILabel!
+    @IBOutlet weak var headTitle: UILabel!
     @IBOutlet weak var sourceLabel: UILabel!
+    
+    @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var sectionLabel: UILabel!
-    @IBOutlet weak var updatedLabel: UILabel!
     var news: Result
     private  var presenter: DetailNewsPresenterImpl!
     init(news: Result, presenter: DetailNewsPresenterImpl) {
@@ -31,8 +32,6 @@ class DetailNewsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        
-        
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFavorite))
         addButton.image = UIImage()
         self.navigationItem.rightBarButtonItem = addButton
@@ -42,15 +41,16 @@ class DetailNewsViewController: UIViewController {
 
 extension DetailNewsViewController {
     func setupUI() {
+      //  self.tabBarController?.tabBar.isHidden = true
         if ((news.media?.count) != 0) {
             guard let url = URL(string: (news.media?[0].mediametadata?[2].url ?? "Image not found")) else {return}
-            newsImage.kf.setImage(with: url)}
-        newsHeadTitle.lineBreakMode = .byWordWrapping
-        newsHeadTitle.numberOfLines = 0
-        newsHeadTitle.text = news.title
+        newsImage.kf.setImage(with: url)}
+        headTitle.lineBreakMode = .byWordWrapping
+        headTitle.numberOfLines = 0
+        headTitle.text = news.title
         sourceLabel.text = "Source: " + (news.source ?? "-")
         sectionLabel.text = "Section: " + (news.section ?? "-")
-        updatedLabel.text = "Updated: " + (news.updated ?? "-")
+        idLabel.text = "Id: \(news.id ?? 0)"
             }
     
     @objc func addFavorite() {

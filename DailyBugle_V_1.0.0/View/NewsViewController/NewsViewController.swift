@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  NewsViewController.swift
 //  DailyBugle_V_1.0.0
 //
 //  Created by Oleksandr Kostogryz on 16.07.2021.
@@ -69,6 +69,7 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource{
         presenter.pushDetailNews(view: self, news: news)
     }
     func setupUI(){
+        self.navigationController?.isNavigationBarHidden = true
         tableView.separatorColor = UIColor.systemYellow
         navigationController?.navigationBar.barTintColor = .black
         navigationController?.navigationBar.tintColor = .white

@@ -28,13 +28,8 @@ extension MainViewController {
      tabBar.unselectedItemTintColor = .black
      tabBar.tintColor = .white
      tabBar.isTranslucent = false
-     navigationItem.title = "Daily Bugle"
+     title = "Daily Bugle" 
     }
-    
-    func setSelectedIndex(index: Int) {
-        selectedIndex = index
-    }
-
     
     func instantiateMostEmailedVC() -> UINavigationController {
         let navigator = NewsNavigatorImpl()
