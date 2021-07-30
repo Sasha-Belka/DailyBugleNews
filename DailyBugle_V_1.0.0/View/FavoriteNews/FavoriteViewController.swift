@@ -64,7 +64,12 @@ class FavoriteViewController: UIViewController {
             func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
                 tableView.deselectRow(at: indexPath, animated: false)
                 guard let favorite = news?[indexPath.row] else { return }
-                presenter.pushLocalNews(view: self, favorite: favorite)
+               
+                
+                //NE ZABUD POPRAVIT
+                let news2 = Result()
+                let newsType = 0
+                presenter.pushDetailNews(view: self, favorite: favorite, news: news2,newsType: newsType)
             }
             
 

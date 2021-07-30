@@ -8,21 +8,15 @@
 import UIKit
 
 protocol NewsNavigatorProtocol {
-    func pushDetailNews(from: UIViewController, news: Result)
-    func pushLocalNews(viewController: UIViewController, favorite: FavoriteNews)
+    func pushDetailNews(from: UIViewController, news: Result, favorite: FavoriteNews, newsType: Int)
 }
 
 var appAssembly = AppAssembly()
 
 class NewsNavigatorImpl: NewsNavigatorProtocol {
-    func pushLocalNews(viewController: UIViewController, favorite: FavoriteNews) {
-        let vc = appAssembly.localNewsController(navigator: self, favorite: favorite)
-        viewController.navigationController?.pushViewController(vc, animated: true)
-    }
     
-    
-    func pushDetailNews(from viewController: UIViewController, news: Result) {
-        let vc = appAssembly.detailNewsController(navigator: self, news: news)
+    func pushDetailNews(from viewController: UIViewController, news: Result, favorite: FavoriteNews, newsType: Int) {
+        let vc = appAssembly.detailNewsController(navigator: self, news: news, favorite: favorite, newsType: newsType)
         viewController.navigationController?.pushViewController(vc, animated: true)
     }
 }

@@ -2,7 +2,7 @@
 //  FavoriteNews+CoreDataClass.swift
 //  
 //
-//  Created by Oleksandr Kostogryz on 21.07.2021.
+//  Created by Oleksandr Kostogryz on 30.07.2021.
 //
 //
 

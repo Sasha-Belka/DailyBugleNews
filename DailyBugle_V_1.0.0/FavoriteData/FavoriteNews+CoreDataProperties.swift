@@ -2,7 +2,7 @@
 //  FavoriteNews+CoreDataProperties.swift
 //  
 //
-//  Created by Oleksandr Kostogryz on 21.07.2021.
+//  Created by Oleksandr Kostogryz on 30.07.2021.
 //
 //
 
@@ -17,8 +17,9 @@ extension FavoriteNews {
     }
 
     @NSManaged public var headTitle: String?
-    @NSManaged public var source: String?
+    @NSManaged public var id: Double
     @NSManaged public var imageUrl: String?
-    @NSManaged public var abstract: String?
-    @NSManaged public var id: String?
+    @NSManaged public var section: String?
+    @NSManaged public var source: String?
+
 }

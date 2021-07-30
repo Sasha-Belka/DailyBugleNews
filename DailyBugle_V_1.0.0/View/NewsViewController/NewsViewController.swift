@@ -11,7 +11,6 @@ class NewsViewController: UIViewController {
     
     private  var presenter: NewsViewPresenterProtocol!
     private var apiType: String
-    
     init(presenter: NewsViewPresenterProtocol, apiType: String) {
         self.presenter = presenter
         self.apiType = apiType
@@ -27,20 +26,15 @@ class NewsViewController: UIViewController {
     var allNews: [Result]?
     override func viewDidLoad() {
         super.viewDidLoad()
-        getNews()
-        setupUI()
         self.tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        presenter.getNews(completion: { [weak self] news in
-            self?.allNews = news
-            self?.tableView.reloadData()
-        },  apiType: apiType )
+        getNews()
+        setupUI()
     }
 }
 
@@ -60,19 +54,22 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource{
         }
     func getNews() {
         presenter.getNews(completion: { [weak self] news in
-               self?.tableView.reloadData()
-            }, apiType: apiType)
+            self?.allNews = news
+            self?.tableView.reloadData()
+        },  apiType: apiType )
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         guard let news = allNews?[indexPath.row] else { return }
-        presenter.pushDetailNews(view: self, news: news)
+        let favorite = FavoriteNews()
+        let newsType = 1
+        presenter.pushDetailNews(view: self, news: news, favorite: favorite, newsType: newsType)
     }
     func setupUI(){
-        self.navigationController?.isNavigationBarHidden = true
+        self.tabBarController?.tabBar.isHidden = false
         tableView.separatorColor = UIColor.systemYellow
-        navigationController?.navigationBar.barTintColor = .black
-        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.barTintColor = .systemYellow
+        navigationController?.navigationBar.tintColor = .black
     }
 }
 
