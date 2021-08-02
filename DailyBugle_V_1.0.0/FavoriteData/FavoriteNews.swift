@@ -23,7 +23,7 @@ class FavoriteData: FavoriteDataProtocol {
         newFavorite.source = source
         newFavorite.section = section
         newFavorite.imageUrl = imageUrl
-        //newFavorite.id = id!
+        newFavorite.id = Int64(id!)
         do {
             try self.context.save()
         }

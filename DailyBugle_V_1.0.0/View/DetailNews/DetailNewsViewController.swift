@@ -10,6 +10,8 @@ import Kingfisher
 import CoreData
 
 class DetailNewsViewController: UIViewController {
+    
+    private let detailNibName = "DetailNewsViewController"
   
     @IBOutlet weak var newsImage: UIImageView!
     @IBOutlet weak var headTitle: UILabel!
@@ -18,14 +20,13 @@ class DetailNewsViewController: UIViewController {
     @IBOutlet weak var sectionLabel: UILabel!
     var news: Result
     var favorite: FavoriteNews
-    let newsType: Int
+    let newsType: String
     private  var presenter: DetailNewsPresenterImpl!
-    init(news: Result, presenter: DetailNewsPresenterImpl, favorite: FavoriteNews, newsType: Int) {
+    init(news: Result, favorite: FavoriteNews, newsType: String) {
         self.news = news
         self.favorite = favorite
-        self.presenter = presenter
         self.newsType = newsType
-        super.init(nibName: "DetailNewsViewController", bundle: nil)
+        super.init(nibName: detailNibName, bundle: nil)
     }
 
     required init?(coder: NSCoder) {
@@ -34,7 +35,7 @@ class DetailNewsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if newsType == 0 { setupLocalNews()
+        if newsType == "SetupLocalNews" { setupLocalNews()
             
         } else {
             setupDetailNews()
@@ -47,7 +48,7 @@ extension DetailNewsViewController {
     func setupDetailNews() {
         self.tabBarController?.tabBar.isHidden = true
         if ((news.media?.count) != 0) {
-            guard let url = URL(string: (news.media?[0].mediametadata?[2].url ?? "https://static01.nyt.com/images/2021/07/20/well/physed-walking-denver/physed-walking-denver-mediumThreeByTwo440-v2.jpg")) else {return}
+            guard let url = URL(string: (news.media?[0].mediametadata?[2].url)!) else {return}
             newsImage.kf.setImage(with: url)}
         headTitle.text = news.title
         sourceLabel.text = "Source: " + (news.source ?? "-")
@@ -60,21 +61,18 @@ extension DetailNewsViewController {
     func setupLocalNews() {
         self.tabBarController?.tabBar.isHidden = true
         if ((news.media?.count) != 0) {
-            guard let url = URL(string: (favorite.imageUrl ?? "https://static01.nyt.com/images/2021/07/20/well/physed-walking-denver/physed-walking-denver-mediumThreeByTwo440-v2.jpg")) else {return}
+            guard let url = URL(string: (favorite.imageUrl)!) else {return}
             newsImage.kf.setImage(with: url)}
         headTitle.text = favorite.headTitle
         sourceLabel.text = "Source: " + (favorite.source ?? "-")
         sectionLabel.text = "Section: " + (favorite.section ?? "-")
-       // idLabel.text = "Id: \(news.id ?? 0)"
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFavorite))
-        addButton.image = UIImage()
-        self.navigationItem.rightBarButtonItem = addButton
+        idLabel.text = "Id: \(favorite.id)"
             }
 
-   @objc func addFavorite() {
+    @objc func addFavorite() {
         let addFavorite = FavoriteData()
         if ((news.media?.count) != 0) {
-            addFavorite.saveFavoriteNews(headTitle: news.title, source: news.source, section: news.section, id: news.id, imageUrl: news.media?[0].mediametadata?[2].url ?? "https://static01.nyt.com/images/2021/07/20/well/physed-walking-denver/physed-walking-denver-mediumThreeByTwo440-v2.jpg")
+            addFavorite.saveFavoriteNews(headTitle: news.title, source: news.source, section: news.section, id: news.id, imageUrl: news.media?[0].mediametadata?[2].url!)
             message(new: title, viewController: self)
             
         } else {

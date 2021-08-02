@@ -6,34 +6,29 @@
 //
 
 import UIKit
+import Kingfisher
 
 class FavoriteViewController: UIViewController {
+    
+    private let tableViewCell = "NewsCell"
+    private let CellReuseIdentifier = "cell"
 
     @IBOutlet weak var tableView: UITableView!
     
-    var presenter: FavoriteNewsPresenter!
-    
-    var news: [FavoriteNews]?
+    var favoriteNews: [FavoriteNews]?
     let data = FavoriteData()
-    init(presenter: FavoriteNewsPresenter) {
-        self.presenter = presenter
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
                                 
-                self.tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
+                self.tableView.register(UINib(nibName: tableViewCell, bundle: nil), forCellReuseIdentifier: CellReuseIdentifier)
                 self.tableView.delegate = self
                 self.tableView.dataSource = self
-                setupUI()
+                
             }
         override func viewWillAppear(_ animated: Bool) {
         reload()
+            setupUI()
             }
         }
 
@@ -41,21 +36,23 @@ class FavoriteViewController: UIViewController {
 
         extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource{
             func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-                self.news?.count ?? 0
+                self.favoriteNews?.count ?? 0
                 
             }
             
             func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-                if let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? TableViewCell {
-                    let favorite = self.news?[indexPath.row]
-                    cell.MyLabel.text = favorite?.headTitle
+                if let cell = tableView.dequeueReusableCell(withIdentifier: CellReuseIdentifier, for: indexPath) as? NewsCell {
+                    let favorite = self.favoriteNews?[indexPath.row]
+                    cell.titleLabel.text = favorite?.headTitle
+                        let url = URL(string: favorite?.imageUrl ?? "tut dolzhna bit kartinka")
+                        cell.newsImage.kf.setImage(with: url)
                     return cell
                 }
                     return UITableViewCell()
                 }
             func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
                 let action = UIContextualAction(style: .destructive, title: "Delete") { [self] (action, view, comletionHandler) in
-                    let cellToRemove = news![indexPath.row]
+                    let cellToRemove = favoriteNews![indexPath.row]
                     data.removeCell(cellToRemove: cellToRemove)
                     reload()
                 }
@@ -63,24 +60,30 @@ class FavoriteViewController: UIViewController {
             }
             func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
                 tableView.deselectRow(at: indexPath, animated: false)
-                guard let favorite = news?[indexPath.row] else { return }
-               
-                
-                //NE ZABUD POPRAVIT
-                let news2 = Result()
-                let newsType = 0
-                presenter.pushDetailNews(view: self, favorite: favorite, news: news2,newsType: newsType)
+                guard let favorite = favoriteNews?[indexPath.row] else { return }
+                let jsonNews = Result()
+                let newsType = "SetupLocalNews"
+                pushDetailNews(news: jsonNews, favorite: favorite, newsType: newsType)
             }
             
 
             func setupUI(){
+                self.tabBarController?.tabBar.isHidden = false
                 tableView.separatorColor = UIColor.systemYellow
-                navigationController?.navigationBar.barTintColor = .black
-                navigationController?.navigationBar.tintColor = .white
+                navigationController?.navigationBar.barTintColor = .systemYellow
+                navigationController?.navigationBar.tintColor = .black
             }
            func reload() {
                 data.fetchFavorite(tableView: tableView)
-                news = data.favorites
+                favoriteNews = data.favorites
+            }
+            func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+                return 100
+            }
+            
+            func pushDetailNews(news: Result, favorite: FavoriteNews, newsType: String) {
+                let viewController = DetailNewsViewController(news: news, favorite: favorite, newsType: newsType)
+                self.navigationController?.pushViewController(viewController, animated: true)
             }
     }
 

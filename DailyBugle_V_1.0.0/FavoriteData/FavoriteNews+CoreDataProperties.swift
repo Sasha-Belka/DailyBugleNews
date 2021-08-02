@@ -17,7 +17,7 @@ extension FavoriteNews {
     }
 
     @NSManaged public var headTitle: String?
-    @NSManaged public var id: Double
+    @NSManaged public var id: Int64
     @NSManaged public var imageUrl: String?
     @NSManaged public var section: String?
     @NSManaged public var source: String?

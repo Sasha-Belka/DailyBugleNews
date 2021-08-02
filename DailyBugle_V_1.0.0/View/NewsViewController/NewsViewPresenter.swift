@@ -10,7 +10,7 @@ import UIKit
 protocol NewsViewPresenterProtocol : class {
     func getNews<T>(completion: @escaping ([Result]?) -> Void, apiType: T)
 
-    func pushDetailNews(view: UIViewController, news: Result, favorite: FavoriteNews, newsType: Int)
+    func pushDetailNews(view: UIViewController, news: Result, favorite: FavoriteNews, newsType: String)
 }
 
 final class NewsViewPresenter: NewsViewPresenterProtocol {
@@ -26,7 +26,7 @@ final class NewsViewPresenter: NewsViewPresenterProtocol {
         }
         
     }
-    func pushDetailNews(view: UIViewController, news: Result, favorite: FavoriteNews, newsType: Int){
+    func pushDetailNews(view: UIViewController, news: Result, favorite: FavoriteNews, newsType: String){
             navigator.pushDetailNews(from: view, news: news, favorite: favorite, newsType: newsType)
         }
     }

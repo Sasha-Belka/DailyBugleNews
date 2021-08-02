@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import Kingfisher
 
 class NewsViewController: UIViewController {
+    
+    private let tableViewCell = "NewsCell"
+    private let CellReuseIdentifier = "cell"
     
     private  var presenter: NewsViewPresenterProtocol!
     private var apiType: String
@@ -26,7 +30,7 @@ class NewsViewController: UIViewController {
     var allNews: [Result]?
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.register(UINib(nibName: "TableViewCell", bundle: nil), forCellReuseIdentifier: "cell")
+        self.tableView.register(UINib(nibName: tableViewCell, bundle: nil), forCellReuseIdentifier: CellReuseIdentifier)
         self.tableView.delegate = self
         self.tableView.dataSource = self
     }
@@ -47,10 +51,14 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let news = (allNews?[indexPath.item])
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-                as? TableViewCell
-            cell?.MyLabel.text = news?.title
-            return cell!
+            let cell = tableView.dequeueReusableCell(withIdentifier: CellReuseIdentifier, for: indexPath)
+                as? NewsCell
+          cell?.titleLabel.text = news?.title
+        if ((news?.media?.count) != 0) {
+        let url = URL(string: news?.media?[0].mediametadata?[2].url ?? "TUT NADA VSTAVIT URL KARINKI")
+            cell?.newsImage.kf.setImage(with: url)
+        }
+        return cell!
         }
     func getNews() {
         presenter.getNews(completion: { [weak self] news in
@@ -62,7 +70,7 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource{
         tableView.deselectRow(at: indexPath, animated: false)
         guard let news = allNews?[indexPath.row] else { return }
         let favorite = FavoriteNews()
-        let newsType = 1
+        let newsType = "SetupDetailNews"
         presenter.pushDetailNews(view: self, news: news, favorite: favorite, newsType: newsType)
     }
     func setupUI(){
@@ -70,6 +78,9 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource{
         tableView.separatorColor = UIColor.systemYellow
         navigationController?.navigationBar.barTintColor = .systemYellow
         navigationController?.navigationBar.tintColor = .black
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
     }
 }
 

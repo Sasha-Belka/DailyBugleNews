@@ -59,8 +59,7 @@ extension MainViewController {
     }
     func instantiateFavoriteVC() -> UINavigationController {
         let navigator = NewsNavigatorImpl()
-        let presenter = FavoriteNewsImpl(navigator: navigator)
-        let vc: FavoriteViewController = FavoriteViewController(presenter: presenter)
+        let vc: FavoriteViewController = FavoriteViewController()
         let navigationVc = UINavigationController(rootViewController: vc)
         vc.tabBarItem = UITabBarItem(
             title: "Favorite News", image: UIImage(systemName: "heart.fill"), selectedImage: UIImage(systemName: "heart.fill"))

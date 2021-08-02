@@ -8,7 +8,7 @@
 import UIKit
 
 protocol FavoriteNewsPresenter {
-    func pushDetailNews(view: UIViewController, favorite: FavoriteNews,news: Result, newsType: Int)
+    func pushDetailNews(view: UIViewController, favorite: FavoriteNews,news: Result, newsType: String)
 }
 
 final class FavoriteNewsImpl: FavoriteNewsPresenter {
@@ -19,7 +19,7 @@ final class FavoriteNewsImpl: FavoriteNewsPresenter {
         self.navigator = navigator
     }
     
-    func pushDetailNews(view: UIViewController, favorite: FavoriteNews, news: Result, newsType: Int) {
+    func pushDetailNews(view: UIViewController, favorite: FavoriteNews, news: Result, newsType: String) {
         navigator.pushDetailNews(from: view, news: news, favorite: favorite, newsType: newsType)
     }
     
