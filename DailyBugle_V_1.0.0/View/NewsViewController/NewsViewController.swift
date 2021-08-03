@@ -53,25 +53,30 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource{
             let news = (allNews?[indexPath.item])
             let cell = tableView.dequeueReusableCell(withIdentifier: CellReuseIdentifier, for: indexPath)
                 as? NewsCell
-          cell?.titleLabel.text = news?.title
-        if ((news?.media?.count) != 0) {
-        let url = URL(string: news?.media?[0].mediametadata?[2].url ?? "TUT NADA VSTAVIT URL KARINKI")
-            cell?.newsImage.kf.setImage(with: url)
+            setupData(cell: cell, news: news)
+            return cell!
         }
-        return cell!
-        }
-    func getNews() {
-        presenter.getNews(completion: { [weak self] news in
-            self?.allNews = news
-            self?.tableView.reloadData()
-        },  apiType: apiType )
-    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         guard let news = allNews?[indexPath.row] else { return }
         let favorite = FavoriteNews()
         let newsType = "SetupDetailNews"
-        presenter.pushDetailNews(view: self, news: news, favorite: favorite, newsType: newsType)
+        pushDetailNews(news: news, favorite: favorite, newsType: newsType)
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    //MARK: Func
+    
+    func pushDetailNews(news: Result, favorite: FavoriteNews, newsType: String) {
+        let viewController = DetailNewsViewController(news: news, favorite: favorite, newsType: newsType)
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
+    func getNews() {
+        presenter.getNews(completion: { [weak self] news in
+            self?.allNews = news
+            self?.tableView.reloadData()
+        },  apiType: apiType )
     }
     func setupUI(){
         self.tabBarController?.tabBar.isHidden = false
@@ -79,8 +84,12 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource{
         navigationController?.navigationBar.barTintColor = .systemYellow
         navigationController?.navigationBar.tintColor = .black
     }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+    func setupData(cell: NewsCell?, news: Result?){
+        cell?.titleLabel.text = news?.title
+        if ((news?.media?.count) != 0) {
+        let url = URL(string: news?.media?[0].mediametadata?[2].url ?? "TUT NADA VSTAVIT URL KARINKI")
+        cell?.newsImage.kf.setImage(with: url)
+        }
     }
 }
 

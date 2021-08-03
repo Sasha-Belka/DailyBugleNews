@@ -15,7 +15,10 @@ protocol FavoriteDataProtocol {
 class FavoriteData: FavoriteDataProtocol {
     
     var favorites: [FavoriteNews]?
-    let context: NSManagedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    
+    let context: NSManagedObjectContext = PersistenceController.shared.container.viewContext
+    
     
     func saveFavoriteNews(headTitle: String?, source: String?, section: String?, id: Int?, imageUrl: String?) {
         let newFavorite = FavoriteNews(context: self.context)
@@ -54,15 +57,4 @@ class FavoriteData: FavoriteDataProtocol {
             print("Error")
         }
     }
-    func removeButton(data: FavoriteNews) {
-        self.context.delete(data)
-       
-        do {
-            try self.context.save()
-        }
-        catch {
-            print("Error")
-        }
-    }
-
 }

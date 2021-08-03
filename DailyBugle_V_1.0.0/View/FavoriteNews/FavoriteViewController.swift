@@ -26,31 +26,29 @@ class FavoriteViewController: UIViewController {
                 self.tableView.dataSource = self
                 
             }
-        override func viewWillAppear(_ animated: Bool) {
-        reload()
+    override func viewWillAppear(_ animated: Bool) {
+            reload()
             setupUI()
             }
         }
 
             //MARK: Tableview delegate and datasource
 
-        extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource{
-            func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
                 self.favoriteNews?.count ?? 0
                 
             }
             
-            func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
                 if let cell = tableView.dequeueReusableCell(withIdentifier: CellReuseIdentifier, for: indexPath) as? NewsCell {
                     let favorite = self.favoriteNews?[indexPath.row]
-                    cell.titleLabel.text = favorite?.headTitle
-                        let url = URL(string: favorite?.imageUrl ?? "tut dolzhna bit kartinka")
-                        cell.newsImage.kf.setImage(with: url)
+                    setupData(cell: cell, favorite: favorite)
                     return cell
                 }
                     return UITableViewCell()
                 }
-            func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
                 let action = UIContextualAction(style: .destructive, title: "Delete") { [self] (action, view, comletionHandler) in
                     let cellToRemove = favoriteNews![indexPath.row]
                     data.removeCell(cellToRemove: cellToRemove)
@@ -58,7 +56,7 @@ class FavoriteViewController: UIViewController {
                 }
                 return UISwipeActionsConfiguration(actions: [action])
             }
-            func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
                 tableView.deselectRow(at: indexPath, animated: false)
                 guard let favorite = favoriteNews?[indexPath.row] else { return }
                 let jsonNews = Result()
@@ -66,26 +64,31 @@ class FavoriteViewController: UIViewController {
                 pushDetailNews(news: jsonNews, favorite: favorite, newsType: newsType)
             }
             
-
-            func setupUI(){
+    //MARK: Func
+    func setupUI(){
                 self.tabBarController?.tabBar.isHidden = false
                 tableView.separatorColor = UIColor.systemYellow
                 navigationController?.navigationBar.barTintColor = .systemYellow
                 navigationController?.navigationBar.tintColor = .black
             }
-           func reload() {
+    func reload() {
                 data.fetchFavorite(tableView: tableView)
                 favoriteNews = data.favorites
             }
-            func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
                 return 100
             }
             
-            func pushDetailNews(news: Result, favorite: FavoriteNews, newsType: String) {
+    func pushDetailNews(news: Result, favorite: FavoriteNews, newsType: String) {
                 let viewController = DetailNewsViewController(news: news, favorite: favorite, newsType: newsType)
                 self.navigationController?.pushViewController(viewController, animated: true)
             }
+    func setupData(cell: NewsCell?, favorite: FavoriteNews?){
+                cell?.titleLabel.text = favorite?.headTitle
+                let url = URL(string: favorite?.imageUrl ?? "TUT NADA VSTAVIT URL KARINKI")
+                cell?.newsImage.kf.setImage(with: url)
     }
+}
 
 
 

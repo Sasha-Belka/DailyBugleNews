@@ -28,9 +28,8 @@ extension MainViewController {
         addChild(embedTabBarVC, toContainer: view)
     }
     func instantiateMostViewedVC() -> UINavigationController {
-        let navigator = NewsNavigatorImpl()
         let apiType = ApiType.getViewedNews.stringValue
-        let presenter = NewsViewPresenter(navigator: navigator)
+        let presenter = NewsViewPresenter()
         let vc: NewsViewController = NewsViewController(presenter: presenter, apiType: apiType)
         let navigationVc = UINavigationController(rootViewController: vc)
         vc.tabBarItem = UITabBarItem(
@@ -38,9 +37,8 @@ extension MainViewController {
         return navigationVc
     }
     func instantiateMostEmailedVC() -> UINavigationController {
-        let navigator = NewsNavigatorImpl()
         let apiType = ApiType.getEmailedNews.stringValue
-        let presenter = NewsViewPresenter(navigator: navigator)
+        let presenter = NewsViewPresenter()
         let vc: NewsViewController = NewsViewController(presenter: presenter, apiType: apiType)
         let navigationVc = UINavigationController(rootViewController: vc)
         vc.tabBarItem = UITabBarItem(
@@ -48,9 +46,8 @@ extension MainViewController {
         return navigationVc
     }
     func instantiateMostSharedVC() -> UINavigationController {
-        let navigator = NewsNavigatorImpl()
         let apiType = ApiType.getSharedNews.stringValue
-        let presenter = NewsViewPresenter(navigator: navigator)
+        let presenter = NewsViewPresenter()
         let vc: NewsViewController = NewsViewController(presenter: presenter, apiType: apiType)
         let navigationVc = UINavigationController(rootViewController: vc)
         vc.tabBarItem = UITabBarItem(
@@ -58,7 +55,6 @@ extension MainViewController {
         return navigationVc
     }
     func instantiateFavoriteVC() -> UINavigationController {
-        let navigator = NewsNavigatorImpl()
         let vc: FavoriteViewController = FavoriteViewController()
         let navigationVc = UINavigationController(rootViewController: vc)
         vc.tabBarItem = UITabBarItem(

@@ -56,8 +56,8 @@ extension DetailNewsViewController {
         idLabel.text = "Id: \(news.id ?? 0)"
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFavorite))
         addButton.image = UIImage()
-        self.navigationItem.rightBarButtonItem = addButton
-            }
+            self.navigationItem.rightBarButtonItem = addButton
+    }
     func setupLocalNews() {
         self.tabBarController?.tabBar.isHidden = true
         if ((news.media?.count) != 0) {
@@ -71,13 +71,8 @@ extension DetailNewsViewController {
 
     @objc func addFavorite() {
         let addFavorite = FavoriteData()
-        if ((news.media?.count) != 0) {
             addFavorite.saveFavoriteNews(headTitle: news.title, source: news.source, section: news.section, id: news.id, imageUrl: news.media?[0].mediametadata?[2].url!)
             message(new: title, viewController: self)
-            
-        } else {
-        addFavorite.saveFavoriteNews(headTitle: news.title, source: news.source, section: news.section, id: news.id, imageUrl: "https://static01.nyt.com/images/2021/07/20/well/physed-walking-denver/physed-walking-denver-mediumThreeByTwo440-v2.jpg")
-            message(new: title, viewController: self)}
     }
     func message(new: String?, viewController: UIViewController){
         let alert = UIAlertController(title: new, message: "Saved", preferredStyle: .alert)

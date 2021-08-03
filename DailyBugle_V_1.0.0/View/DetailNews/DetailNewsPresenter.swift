@@ -13,9 +13,4 @@ protocol DetailNewsProtocol: class {
 
 final class DetailNewsPresenterImpl {
 
-    let navigator: NewsNavigatorImpl
-
-    init(navigator: NewsNavigatorImpl) {
-        self.navigator = navigator
-    }
 }
