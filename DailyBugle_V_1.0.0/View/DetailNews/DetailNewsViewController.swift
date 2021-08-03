@@ -43,7 +43,7 @@ class DetailNewsViewController: UIViewController {
         }
     }
 }
-
+//MARK: SetupNews
 extension DetailNewsViewController {
     func setupDetailNews() {
         self.tabBarController?.tabBar.isHidden = true
@@ -69,6 +69,7 @@ extension DetailNewsViewController {
         idLabel.text = "Id: \(favorite.id)"
             }
 
+    //MARK: Func
     @objc func addFavorite() {
         let addFavorite = FavoriteData()
             addFavorite.saveFavoriteNews(headTitle: news.title, source: news.source, section: news.section, id: news.id, imageUrl: news.media?[0].mediametadata?[2].url!)

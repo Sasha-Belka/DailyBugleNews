@@ -62,6 +62,7 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource{
         let favorite = FavoriteNews()
         let newsType = "SetupDetailNews"
         pushDetailNews(news: news, favorite: favorite, newsType: newsType)
+        
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
@@ -71,6 +72,7 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource{
     func pushDetailNews(news: Result, favorite: FavoriteNews, newsType: String) {
         let viewController = DetailNewsViewController(news: news, favorite: favorite, newsType: newsType)
         self.navigationController?.pushViewController(viewController, animated: true)
+        
     }
     func getNews() {
         presenter.getNews(completion: { [weak self] news in
@@ -87,7 +89,7 @@ extension NewsViewController: UITableViewDelegate, UITableViewDataSource{
     func setupData(cell: NewsCell?, news: Result?){
         cell?.titleLabel.text = news?.title
         if ((news?.media?.count) != 0) {
-        let url = URL(string: news?.media?[0].mediametadata?[2].url ?? "TUT NADA VSTAVIT URL KARINKI")
+        let url = URL(string: news?.media?[0].mediametadata?[2].url ?? "https://theimageconference.org/wp-content/uploads/2021/02/online_conference_bcteal__image_conference.png")
         cell?.newsImage.kf.setImage(with: url)
         }
     }

@@ -85,7 +85,7 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource{
             }
     func setupData(cell: NewsCell?, favorite: FavoriteNews?){
                 cell?.titleLabel.text = favorite?.headTitle
-                let url = URL(string: favorite?.imageUrl ?? "TUT NADA VSTAVIT URL KARINKI")
+                let url = URL(string: favorite?.imageUrl ?? "https://theimageconference.org/wp-content/uploads/2021/02/online_conference_bcteal__image_conference.png")
                 cell?.newsImage.kf.setImage(with: url)
     }
 }
