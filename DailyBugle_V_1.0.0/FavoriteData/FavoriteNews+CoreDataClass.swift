@@ -1,9 +1,8 @@
 //
 //  FavoriteNews+CoreDataClass.swift
-//  
+//  DailyBugle_V_1.0.0
 //
-//  Created by Oleksandr Kostogryz on 30.07.2021.
-//
+//  Created by Oleksandr Kostogryz on 04.08.2021.
 //
 
 import Foundation
