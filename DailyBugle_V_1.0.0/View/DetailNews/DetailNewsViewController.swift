@@ -13,6 +13,7 @@ class DetailNewsViewController: UIViewController {
     
     private let detailNibName = "DetailNewsViewController"
   
+    @IBOutlet weak var adxKeywords: UILabel!
     @IBOutlet weak var newsImage: UIImageView!
     @IBOutlet weak var headTitle: UILabel!
     @IBOutlet weak var sourceLabel: UILabel!
@@ -54,6 +55,7 @@ extension DetailNewsViewController {
         sourceLabel.text = "Source: " + (news.source ?? "-")
         sectionLabel.text = "Section: " + (news.section ?? "-")
         idLabel.text = "Id: \(news.id ?? 0)"
+        adxKeywords.text = "ADX_Keywords: " + (news.adxKeywords ?? "-")
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFavorite))
         addButton.image = UIImage()
             self.navigationItem.rightBarButtonItem = addButton
@@ -68,6 +70,7 @@ extension DetailNewsViewController {
         sectionLabel.text = "Section: " + (favorite.section ?? "-")
         idLabel.text = "Id: \(favorite.id)"
             }
+   
 
     //MARK: Func
     @objc func addFavorite() {
