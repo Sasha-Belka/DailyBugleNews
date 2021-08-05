@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20E241" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="FavoriteNews" representedClassName=".FavoriteNews" syncable="YES">
+        <attribute name="adxKeywords" optional="YES" attributeType="String"/>
         <attribute name="headTitle" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="imageUrl" optional="YES" attributeType="String"/>
@@ -8,6 +9,6 @@
         <attribute name="source" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="FavoriteNews" positionX="-63" positionY="-18" width="128" height="104"/>
+        <element name="FavoriteNews" positionX="-63" positionY="-18" width="128" height="119"/>
     </elements>
 </model>

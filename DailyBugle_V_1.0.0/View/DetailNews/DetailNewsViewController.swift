@@ -69,13 +69,14 @@ extension DetailNewsViewController {
         sourceLabel.text = "Source: " + (favorite.source ?? "-")
         sectionLabel.text = "Section: " + (favorite.section ?? "-")
         idLabel.text = "Id: \(favorite.id)"
+        adxKeywords.text = "ADX_Keywords: " + (favorite.adxKeywords ?? "-")
             }
    
 
     //MARK: Func
     @objc func addFavorite() {
         let addFavorite = FavoriteData()
-            addFavorite.saveFavoriteNews(headTitle: news.title, source: news.source, section: news.section, id: news.id, imageUrl: news.media?[0].mediametadata?[2].url!)
+        addFavorite.saveFavoriteNews(headTitle: news.title, source: news.source, section: news.section, id: news.id, imageUrl: news.media?[0].mediametadata?[2].url!, adxKeywords: news.adxKeywords)
             message(new: title, viewController: self)
     }
     func message(new: String?, viewController: UIViewController){

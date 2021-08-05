@@ -20,5 +20,6 @@ extension FavoriteNews {
     @NSManaged public var imageUrl: String?
     @NSManaged public var section: String?
     @NSManaged public var source: String?
+    @NSManaged public var adxKeywords: String?
 
 }

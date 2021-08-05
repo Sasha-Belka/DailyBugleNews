@@ -9,7 +9,7 @@ import UIKit
 import CoreData
 
 protocol FavoriteDataProtocol {
-    func saveFavoriteNews(headTitle: String?, source: String?, section: String?, id: Int?, imageUrl: String?)
+    func saveFavoriteNews(headTitle: String?, source: String?, section: String?, id: Int?, imageUrl: String?, adxKeywords: String?)
 }
 
 class FavoriteData: FavoriteDataProtocol {
@@ -20,13 +20,14 @@ class FavoriteData: FavoriteDataProtocol {
     let context: NSManagedObjectContext = PersistenceController.shared.container.viewContext
     
     
-    func saveFavoriteNews(headTitle: String?, source: String?, section: String?, id: Int?, imageUrl: String?) {
+    func saveFavoriteNews(headTitle: String?, source: String?, section: String?, id: Int?, imageUrl: String?, adxKeywords: String?) {
         let newFavorite = FavoriteNews(context: self.context)
         newFavorite.headTitle = headTitle
         newFavorite.source = source
         newFavorite.section = section
         newFavorite.imageUrl = imageUrl
         newFavorite.id = Int64(id!)
+        newFavorite.adxKeywords = adxKeywords
         do {
             try self.context.save()
         }
