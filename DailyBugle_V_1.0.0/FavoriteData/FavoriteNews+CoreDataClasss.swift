@@ -1,5 +1,5 @@
 //
-//  FavoriteNews+CoreDataClass.swift
+//  FavoriteNews+CoreDataClasss.swift
 //  DailyBugle_V_1.0.0
 //
 //  Created by Oleksandr Kostogryz on 04.08.2021.
