@@ -19,11 +19,11 @@ class DetailNewsViewController: UIViewController {
     @IBOutlet weak var sourceLabel: UILabel!
     @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var sectionLabel: UILabel!
-    var news: Result
+    var news: Result?
     var favorite: FavoriteNews
     let newsType: String
     private  var presenter: DetailNewsPresenterImpl!
-    init(news: Result, favorite: FavoriteNews, newsType: String) {
+    init(news: Result?, favorite: FavoriteNews, newsType: String) {
         self.news = news
         self.favorite = favorite
         self.newsType = newsType
@@ -48,21 +48,21 @@ class DetailNewsViewController: UIViewController {
 extension DetailNewsViewController {
     func setupDetailNews() {
         self.tabBarController?.tabBar.isHidden = true
-        if ((news.media?.count) != 0) {
-            guard let url = URL(string: (news.media?[0].mediametadata?[2].url)!) else {return}
+        if ((news?.media?.count) != 0) {
+            guard let url = URL(string: (news?.media?[0].mediametadata?[2].url)!) else {return}
             newsImage.kf.setImage(with: url)}
-        headTitle.text = news.title
-        sourceLabel.text = "Source: " + (news.source ?? "-")
-        sectionLabel.text = "Section: " + (news.section ?? "-")
-        idLabel.text = "Id: \(news.id ?? 0)"
-        adxKeywords.text = "ADX_Keywords: " + (news.adxKeywords ?? "-")
+        headTitle.text = news?.title
+        sourceLabel.text = "Source: " + (news?.source ?? "-")
+        sectionLabel.text = "Section: " + (news?.section ?? "-")
+        idLabel.text = "Id: \(news?.id ?? 0)"
+        adxKeywords.text = "ADX_Keywords: " + (news?.adxKeywords ?? "-")
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFavorite))
         addButton.image = UIImage()
             self.navigationItem.rightBarButtonItem = addButton
     }
     func setupLocalNews() {
         self.tabBarController?.tabBar.isHidden = true
-        if ((news.media?.count) != 0) {
+        if ((news?.media?.count) != 0) {
             guard let url = URL(string: (favorite.imageUrl)!) else {return}
             newsImage.kf.setImage(with: url)}
         headTitle.text = favorite.headTitle
@@ -73,10 +73,10 @@ extension DetailNewsViewController {
             }
    
 
-    //MARK: Func
+    //MARK: AddFavorite, Message
     @objc func addFavorite() {
         let addFavorite = FavoriteData()
-        addFavorite.saveFavoriteNews(headTitle: news.title, source: news.source, section: news.section, id: news.id, imageUrl: news.media?[0].mediametadata?[2].url!, adxKeywords: news.adxKeywords)
+        addFavorite.saveFavoriteNews(headTitle: news?.title, source: news?.source, section: news?.section, id: news?.id, imageUrl: news?.media?[0].mediametadata?[2].url!, adxKeywords: news?.adxKeywords)
             message(new: title, viewController: self)
     }
     func message(new: String?, viewController: UIViewController){

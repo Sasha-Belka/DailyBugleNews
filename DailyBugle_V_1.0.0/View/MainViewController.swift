@@ -25,7 +25,7 @@ extension MainViewController {
         embedTabBarVC.tabBar.unselectedItemTintColor = .black
         embedTabBarVC.tabBar.tintColor = .white
         self.navigationController?.isNavigationBarHidden = true
-        addChild(embedTabBarVC, toContainer: view)
+        addChildViewControllerToView(embedTabBarVC, toContainer: view)
     }
     func instantiateMostViewedVC() -> UINavigationController {
         let apiType = ApiType.getViewedNews.stringValue

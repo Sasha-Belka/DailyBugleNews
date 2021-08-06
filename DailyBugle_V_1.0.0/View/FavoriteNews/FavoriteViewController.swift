@@ -63,8 +63,11 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource{
                 let newsType = "SetupLocalNews"
                 pushDetailNews(news: jsonNews, favorite: favorite, newsType: newsType)
             }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+                return 100
+            }
             
-    //MARK: Func
+    //MARK: PushDetail, setupData, SetupUI
     func setupUI(){
                 self.tabBarController?.tabBar.isHidden = false
                 tableView.separatorColor = UIColor.systemYellow
@@ -75,10 +78,6 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource{
                 data.fetchFavorite(tableView: tableView)
                 favoriteNews = data.favorites
             }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-                return 100
-            }
-            
     func pushDetailNews(news: Result, favorite: FavoriteNews, newsType: String) {
                 let viewController = DetailNewsViewController(news: news, favorite: favorite, newsType: newsType)
                 self.navigationController?.pushViewController(viewController, animated: true)

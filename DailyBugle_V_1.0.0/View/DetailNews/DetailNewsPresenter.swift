@@ -11,6 +11,6 @@ protocol DetailNewsProtocol: class {
     
 }
 
-final class DetailNewsPresenterImpl {
+final class DetailNewsPresenterImpl: DetailNewsProtocol {
 
 }
